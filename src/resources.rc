@@ -1,0 +1,33 @@
+#include <windows.h>
+
+#define IDI_MAIN_ICON 101
+
+IDI_MAIN_ICON ICON "clip.ico"
+
+VS_VERSION_INFO VERSIONINFO
+FILEVERSION     1,0,0,0
+PRODUCTVERSION  1,0,0,0
+FILEFLAGSMASK   VS_FFI_FILEFLAGSMASK
+FILEFLAGS       0x0L
+FILEOS          VOS_NT_WINDOWS32
+FILETYPE        VFT_APP
+FILESUBTYPE     VFT2_UNKNOWN
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040A04B0"
+        BEGIN
+            VALUE "CompanyName",      "Clipped"
+            VALUE "FileDescription",  "Clipped - Historial Ligero de Portapapeles"
+            VALUE "FileVersion",      "1.0.0.0"
+            VALUE "InternalName",     "Clipped"
+            VALUE "OriginalFilename", "Clipped.exe"
+            VALUE "ProductName",      "Clipped"
+            VALUE "ProductVersion",   "1.0.0.0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x040A, 1200
+    END
+END

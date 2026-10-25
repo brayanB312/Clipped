@@ -1,0 +1,50 @@
+name: Build & Release Clipped
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Configure CMake (x64)
+        run: cmake -B build -A x64
+
+      - name: Build Clipped (Release /MT Static)
+        run: cmake --build build --config Release
+
+      - name: Package Portable ZIP
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path dist | Out-Null
+          Compress-Archive -Path "build/Release/Clipped.exe", "README.md" -DestinationPath "dist/Clipped-Portable-x64.zip" -Force
+
+      - name: Build Installer with Inno Setup (ClippedSetup.exe)
+        run: iscc installer/ClippedSetup.iss
+
+      - name: Upload Build Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Clipped-Windows-x64
+          path: |
+            dist/ClippedSetup.exe
+            dist/Clipped-Portable-x64.zip
+
+      - name: Publish GitHub Release (on Tag push)
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/ClippedSetup.exe
+            dist/Clipped-Portable-x64.zip
+          generate_release_notes: true

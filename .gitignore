@@ -1,0 +1,22 @@
+# Directorios de compilación y caché de CMake / Visual Studio
+build/
+out/
+dist/
+.vs/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+
+# Bases de datos locales de prueba
+*.db
+*.db-wal
+*.db-shm
+
+# Binarios y símbolos locales
+*.exe
+*.obj
+*.pdb
+*.ilk
+*.lib
+*.exp
